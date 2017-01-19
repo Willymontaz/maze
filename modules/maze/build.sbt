@@ -19,8 +19,6 @@ organization := "fr.vsct.dt"
 
 scalaVersion := "2.12.1"
 
-scalacOptions += "-Ymacro-debug-lite"
-
 libraryDependencies ++= Seq(
   "org.apache.httpcomponents" % "httpclient" % "4.5.2",
   "com.github.docker-java" % "docker-java" % "3.0.6",
@@ -31,19 +29,3 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
   "ch.qos.logback" % "logback-classic" % "1.1.7" % "optional"
 )
-
-lazy val root = (project in file(".")).
-  aggregate(macros, maze).
-  configs(IntegrationTest).
-  settings(Defaults.itSettings: _*)
-
-lazy val macros = project.in(file("modules/macros"))
-
-lazy val maze = project.in(file("modules/maze"))
-
-scalastyleConfig := file("project/scalastyle-config.xml")
-scalastyleFailOnError := true
-
-releasePublishArtifactsAction := PgpKeys.publishSigned.value
-
-parallelExecution in IntegrationTest := false

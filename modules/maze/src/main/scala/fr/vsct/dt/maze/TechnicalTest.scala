@@ -14,9 +14,19 @@
  * limitations under the License.
  */
 
-addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.3")
-addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.8.0")
-addSbtPlugin("com.typesafe.sbt" % "sbt-pgp" % "0.8")
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "1.1")
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.0")
-addSbtPlugin("com.codacy" % "sbt-codacy-coverage" % "1.3.7")
+package fr.vsct.dt.maze
+
+import fr.vsct.dt.maze.helpers.DockerNetwork
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, FlatSpec, Matchers}
+
+abstract class TechnicalTest extends FlatSpec with Matchers with BeforeAndAfterEach with BeforeAndAfterAll {
+
+  override protected def beforeAll(): Unit = {
+    DockerNetwork.createDefaultNetwork()
+  }
+
+  override protected def afterAll(): Unit = {
+    DockerNetwork.removeDefaultNetwork()
+  }
+
+}

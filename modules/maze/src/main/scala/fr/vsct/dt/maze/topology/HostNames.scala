@@ -14,9 +14,17 @@
  * limitations under the License.
  */
 
-addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.3")
-addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.8.0")
-addSbtPlugin("com.typesafe.sbt" % "sbt-pgp" % "0.8")
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "1.1")
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.0")
-addSbtPlugin("com.codacy" % "sbt-codacy-coverage" % "1.3.7")
+package fr.vsct.dt.maze.topology
+
+object HostNames {
+
+  /* Stores current indexes for hostname. Useful to avoid hostname collision when the hostname is user predefined */
+  private var hostnameIndexes: Map[String, Int] = Map()
+
+  def getNextIndex(hostName: String): Int = {
+    val index = hostnameIndexes.getOrElse(hostName, -1) + 1
+    hostnameIndexes += (hostName -> index)
+    index
+  }
+
+}

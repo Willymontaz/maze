@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.3")
-addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.8.0")
-addSbtPlugin("com.typesafe.sbt" % "sbt-pgp" % "0.8")
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "1.1")
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.0")
-addSbtPlugin("com.codacy" % "sbt-codacy-coverage" % "1.3.7")
+package fr.vsct.dt.maze.topology
+
+class NodeGroup(val nodes: Seq[DockerClusterNode]) {
+
+  def +(other: NodeGroup): NodeGroup = new NodeGroup(this.nodes ++ other.nodes)
+  def +(other: DockerClusterNode): NodeGroup = new NodeGroup(this.nodes ++ Seq(other))
+
+}
